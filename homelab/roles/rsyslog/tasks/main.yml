@@ -1,0 +1,5 @@
+---
+  - name: Setup rsyslog
+    lineinfile:
+      line: $PreserveFQDN on\n\n*.* @{{ syslog_server_address }}:514
+      path: /etc/rsyslog.conf

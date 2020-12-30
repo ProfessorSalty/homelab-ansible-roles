@@ -1,0 +1,5 @@
+---
+  - name: start_netdata
+    ansible.builtin.service:
+      name: netdata
+      state: started

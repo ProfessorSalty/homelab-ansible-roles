@@ -1,0 +1,6 @@
+---
+- name: Set authorized key for user, copying it from current user
+  ansible.posix.authorized_key:
+    user: toor
+    state: present
+    key: "{{ lookup('file', public_key_file) }}"
