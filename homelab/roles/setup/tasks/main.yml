@@ -26,6 +26,12 @@
     dnf:
       name: fish
       state: present
+  - name: Install unattended upgrades on CentOS
+    when: ansible_distribution == "CentOS"
+    become: yes
+    dnf:
+      name: dnf-automatic
+      state: present
 
   - name: Change shell to fish
     become: yes
