@@ -1,7 +1,8 @@
 ---
   # Ubuntu
   - name: Install Netdata dependencies
-    when: ansible_distribution === "Ubuntu"
+    become: true
+    when: ansible_distribution == "Ubuntu"
     apt:
       name:
         [
@@ -27,18 +28,21 @@
       state: present
       update_cache: yes
   - name: Clone Netdata repo
-    when: ansible_distribution === "Ubuntu"
+    become: true
+    when: ansible_distribution == "Ubuntu"
     git:
       depth: "1"
       dest: /opt/netdata
       repo: https://github.com/netdata/netdata.git
   - name: Get Netdata status
-    when: ansible_distribution === "Ubuntu"
+    become: true
+    when: ansible_distribution == "Ubuntu"
     stat:
       path: /opt/netdata
     register: netdata_clone
   - name: Install Netdata using the script in the repo
-    when: ansible_distribution === "Ubuntu" and netdata_clone.stat.isdir | default(False) and netdata_clone.stat.isdir
+    become: true
+    when: ansible_distribution == "Ubuntu" and netdata_clone.stat.isdir | default(False) and netdata_clone.stat.isdir
     shell: bash netdata-installer.sh --dont-wait --libs-are-really-here
     args:
       chdir: /opt/netdata
@@ -46,18 +50,20 @@
 
   # CentOS
   - name: Download Netdata repo script
-    when: ansible_distribution === "CentOS"
+    when: ansible_distribution == "CentOS"
     ansible.builtin.get_url:
       url: https://packagecloud.io/install/repositories/netdata/netdata/script.rpm.sh
       dest: /tmp/
       mode: 0755
   - name: Execute Netdata repo script
-    when: ansible_distribution === "CentOS"
+    become: true
+    when: ansible_distribution == "CentOS"
     shell: sh script.rpm.sh
     args:
       chdir: /tmp/
   - name: Install Netdata
-    when: ansible_distribution === "CentOS"
+    when: ansible_distribution == "CentOS"
+    become: true
     ansible.builtin.dnf:
       name: netdata
       state: present

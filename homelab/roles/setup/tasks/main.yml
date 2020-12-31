@@ -1,29 +1,34 @@
 ---
-  # Ubunntu
-  - name: Install mosh (MObile SHell)
+  # Ubuntu
+  - name: Install mosh (MObile SHell) on Ubuntu
+    when: ansible_distribution == "Ubuntu"
+    become: yes
     apt:
-      when: ansible_distribution === "Ubuntu"
       name: mosh
       state: present
-  - name: Install fish
+  - name: Install fish on Ubuntu
+    become: yes
+    when: ansible_distribution == "Ubuntu"
     apt:
-      when: ansible_distribution === "Ubuntu"
       name: fish
       state: present
       update_cache: yes
   #CentOS
-  - name: Install mosh (MObile SHell)
+  - name: Install mosh (MObile SHell) on CentOS
+    when: ansible_distribution == "CentOS"
+    become: yes
     dnf:
-      when: ansible_distribution === "CentOS"
       name: mosh
       state: present
-  - name: Install fish
+  - name: Install fish on CentOS
+    when: ansible_distribution == "CentOS"
+    become: yes
     dnf:
-      when: ansible_distribution === "CentOS"
       name: fish
       state: present
 
   - name: Change shell to fish
+    become: yes
     user:
       name: toor
       shell: /usr/bin/fish
