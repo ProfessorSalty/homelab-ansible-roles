@@ -1,0 +1,13 @@
+---
+# tasks file for rngtools
+- name: Install rng-tools
+  ansible.builtin.apt:
+    name: rng-tools
+    state: present
+    update_cache: yes
+# https://www.nico-maas.de/?p=1562
+- name: Setup hardware rng
+  ansible.builtin.lineinfile:
+    line: HRNGDEVICE=/dev/hwrng
+    file: /etc/default/rng-tools
+  notify: restart_rng-tools

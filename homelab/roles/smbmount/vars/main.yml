@@ -1,0 +1,4 @@
+---
+credentials:
+  - name: somename
+    password: pass@word1

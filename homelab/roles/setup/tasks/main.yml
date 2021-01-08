@@ -12,7 +12,12 @@
     apt:
       name: fish
       state: present
-      update_cache: yes
+  - name: Install NFS client packages
+    become: yes
+    when: ansible_distribution == "Ubuntu"
+    apt:
+      name: nfs-common
+      state: present
   #CentOS
   - name: Install mosh (MObile SHell) on CentOS
     when: ansible_distribution == "CentOS"
