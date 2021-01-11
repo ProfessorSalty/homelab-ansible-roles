@@ -18,7 +18,6 @@
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
         state: present
-        update_cache: yes
       tags:
         - docker
     - name: Update apt packages

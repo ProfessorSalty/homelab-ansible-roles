@@ -1,38 +1,53 @@
 ---
   # Ubuntu
   - name: Install mosh (MObile SHell) on Ubuntu
-    when: ansible_distribution == "Ubuntu"
+    when: ansible_distribution == 'Ubuntu'
     become: yes
     apt:
       name: mosh
       state: present
   - name: Install fish on Ubuntu
     become: yes
-    when: ansible_distribution == "Ubuntu"
+    when: ansible_distribution == 'Ubuntu'
     apt:
       name: fish
       state: present
   - name: Install NFS client packages
     become: yes
-    when: ansible_distribution == "Ubuntu"
+    when: ansible_distribution == 'Ubuntu'
     apt:
       name: nfs-common
       state: present
+  - name: Install fail2ban package
+    apt: 
+      name: fail2ban
+      state: present
+    when: ansible_distribution=='Debian' or ansible_distribution=='Ubuntu'
+    become: yes
+  - name: Copy fail2ban config
+    copy: 
+      src: jail.local 
+      dest: /etc/fail2ban/jail.local 
+      owner: root
+      group: root 
+      mode: 0644
+    become: yes
+
   #CentOS
   - name: Install mosh (MObile SHell) on CentOS
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == 'CentOS'
     become: yes
     dnf:
       name: mosh
       state: present
   - name: Install fish on CentOS
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == 'CentOS'
     become: yes
     dnf:
       name: fish
       state: present
   - name: Install unattended upgrades on CentOS
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == 'CentOS'
     become: yes
     dnf:
       name: dnf-automatic
