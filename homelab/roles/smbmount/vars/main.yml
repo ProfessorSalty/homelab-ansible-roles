@@ -2,3 +2,6 @@
 credentials:
   - name: somename
     password: pass@word1
+mounts_directory:
+credentials_directory:
+samba_server_address:

@@ -1,6 +1,6 @@
 ---
-- name: Set authorized key for user, copying it from current user
+- name: Set authorized key for the new user, copying it from the current user
   ansible.posix.authorized_key:
-    user: toor
+    user: "{{ template_username }}"
     state: present
     key: "{{ lookup('file', public_key_file) }}"

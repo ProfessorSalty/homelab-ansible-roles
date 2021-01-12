@@ -1,2 +1,4 @@
 ---
 # vars file for homelab.docker
+ansible_check_mode: false
+template_username:

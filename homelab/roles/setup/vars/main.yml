@@ -1,2 +1,3 @@
 ---
 # vars file for homelab.setup
+template_username:
