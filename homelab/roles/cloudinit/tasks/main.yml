@@ -1,0 +1,49 @@
+---
+- name: Install Cloud-Init
+  become: true
+  package:
+    name: cloud-init
+    state: present
+
+- name: Remove unused Cloud-Init file
+  become: true
+  file:
+    path: /etc/cloud/cloud.cfg.d/99-installer.cfg
+    state: absent
+
+- name: Configure /etc/cloud/cloud.cfg.d/99_pve.cfg
+  become: true
+  copy:
+    content: |
+      datasource_list: [ NoCloud, ConfigDrive ]
+    dest: /etc/cloud/cloud.cfg.d/99_pve.cfg
+    mode: u=rw,g=rw,o=rw
+
+- name: Configure /etc/cloud/cloud.cfg.d/99-installer.cfg
+  become: true
+  copy:
+    content: |
+      datasource_list: [ None ]
+    dest: /etc/cloud/cloud.cfg.d/99-installer.cfg
+    mode: u=rw,g=r,o=r
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version is version('20.04', '>=')
+
+- name: Clean up Cloud-Init installation
+  become: true
+  block:
+    - name: Attempting Cloud-Init clean
+      command: cloud-init clean -s -l
+      become: true
+
+  rescue:
+    - name: Manually clean Cloud-Init files
+      become: true
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/lib/cloud/instances
+        - /var/log/cloud-init.log
+        - /var/log/cloud-init-output.log
