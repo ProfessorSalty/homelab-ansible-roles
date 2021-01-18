@@ -47,3 +47,9 @@
         - /var/lib/cloud/instances
         - /var/log/cloud-init.log
         - /var/log/cloud-init-output.log
+
+- name: cloud-init | Enabling cloud-init.service
+  become: true
+  service:
+    name: cloud-init.service
+    enabled: true

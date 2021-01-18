@@ -1,6 +1,2 @@
 ---
 # handlers file for homelab.setup
-- name: update_grub
-  become: yes
-  ansible.builtin.command:
-    cmd: update-grub
