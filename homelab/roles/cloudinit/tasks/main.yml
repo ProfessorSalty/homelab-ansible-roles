@@ -19,17 +19,6 @@
     dest: /etc/cloud/cloud.cfg.d/99_pve.cfg
     mode: u=rw,g=rw,o=rw
 
-- name: Configure /etc/cloud/cloud.cfg.d/99-installer.cfg
-  become: true
-  copy:
-    content: |
-      datasource_list: [ None ]
-    dest: /etc/cloud/cloud.cfg.d/99-installer.cfg
-    mode: u=rw,g=r,o=r
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version is version('20.04', '>=')
-
 - name: Clean up Cloud-Init installation
   become: true
   block:
