@@ -1,13 +1,4 @@
 ---
-  - name: Create filesystems
-    become: yes
-    with_items: "{{ var.drives }}"
-    community.general.parted:
-      device: "/dev/{{ item.device }}"
-      number: 1
-      state: mounted
-      fs_type: ext4
-
   - name: Mount drives
     become: yes
     with_items: "{{ var.drives }}"

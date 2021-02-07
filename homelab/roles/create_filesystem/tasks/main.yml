@@ -1,0 +1,10 @@
+---
+# tasks file for create_filesystem
+  - name: Create filesystem
+    become: yes
+    with_items: "{{ var.drives }}"
+    community.general.parted:
+      device: "/dev/{{ item.device }}"
+      number: 1
+      state: mounted
+      fs_type: ext4
