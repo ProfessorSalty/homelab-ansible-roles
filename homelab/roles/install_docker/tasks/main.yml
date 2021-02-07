@@ -1,0 +1,63 @@
+---
+    - name: Add Dockers official GPG key
+      become: yes
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Verify that we have the key with the fingerprint
+      become: yes
+      apt_key:
+        id: 0EBFCD88
+        state: present
+    - name: Set up the stable repository for x86_64
+      become: yes
+      when: ansible_architecture is "x86_64"
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Set up the stable repository for armhf
+      become: yes
+      when: ansible_architecture is "arm64"
+      apt_repository:
+        repo: deb [arch=armhf] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Update apt packages
+      become: yes
+      pakcage:
+        update_cache: yes
+    - name: Install Docker dependencies
+      become: yes
+      apt:
+        name:
+          [
+            "apt-transport-https",
+            "ca-certificates",
+            "curl",
+            "software-properties-common",
+          ]
+        state: present
+        update_cache: yes
+    - name: Install docker
+      become: yes
+      ignore_errors: "{{ ansible_check_mode }}"
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      notify: start_docker
+    - name: Install docker-compose
+      become: yes
+      get_url: 
+        url : https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 0666
+        owner: root
+        group: root
+    - name: Add user user to group `docker`
+      become: yes
+      ignore_errors: "{{ ansible_check_mode }}"
+      user:
+        name: "{{ template_username }}"
+        groups: 
+          - docker
+        append: yes

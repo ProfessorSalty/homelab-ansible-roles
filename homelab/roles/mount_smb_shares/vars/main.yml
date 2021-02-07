@@ -1,0 +1,12 @@
+---
+drives:
+  - device:
+    mount_point:
+    
+smb_credentials:
+  - username:
+    password:
+    sharepath:
+
+env_vars:
+

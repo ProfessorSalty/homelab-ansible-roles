@@ -1,0 +1,3 @@
+---
+# vars file for homelab.install_server_packages
+template_username:

@@ -1,0 +1,12 @@
+[Unit]
+Description=Start the fronnt panel script
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /opt/setup_display.py
+WorkingDirectory=/opt/
+User=pi
+
+[Install]
+WantedBy=multi-user.target

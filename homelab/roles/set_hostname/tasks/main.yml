@@ -1,0 +1,12 @@
+---
+# tasks file for set_hostname
+- name: Change hostname
+  hostname:
+    name: "{{ var.hostname }}"
+
+- name      : Set hostname in /etc/hosts
+  lineinfile: 
+    dest      : /etc/hosts
+    regexp    : '^127\.0\.0\.1[ \t]+localhost'
+    line      : '127.0.0.1 localhost {{ var.hostname }} {{ var.hostname }}.land'
+    state     : present

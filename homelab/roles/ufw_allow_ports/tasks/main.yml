@@ -1,0 +1,11 @@
+---
+# tasks file for ufw_allow_ports
+- name: Allow ports 
+  become: yes
+  with_items: "{{ vars.configs }}"
+  community.general.ufw:
+    comment: "{{ item.service }}"
+    direction: in
+    rule: allow
+    proto: tcp
+    to_port: "{{ item.port }}"

@@ -1,0 +1,43 @@
+---
+# tasks file for remove_netplan
+- name: Update cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install ifupdown
+  become: yes
+  apt:
+    name: ifupdown
+    state: present
+
+- name: Remove netplan.io
+  become: yes
+  apt:
+    name: netplan.io
+    state: absent
+    purge: yes
+
+- name: Delete /etc/netplan
+  become: yes
+  file:
+    state: absent
+    path: /etc/netplan/
+
+- name: Create /etc/network/interfaces
+  become: yes
+  copy:
+    force: yes
+    dest: "/etc/network/interfaces"
+    content: |
+      auto eth0
+      iface eth0 inet dhcp
+
+- name: Revert network device naming
+  become: yes
+  notify: update_grub
+  lineinfile:
+    state: present
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX=\"\"'
+    line: GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"

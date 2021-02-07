@@ -1,6 +1,0 @@
----
-# handlers file for rngtools
-- name: restart_rng-tools
-  ansible.builtin.service:
-    name: rng-tools
-    state: restarted

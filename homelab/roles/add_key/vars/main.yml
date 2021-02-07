@@ -1,0 +1,4 @@
+---
+# vars file for add_key
+template_username:
+public_key_file: 
