@@ -1,0 +1,11 @@
+---
+# tasks file for install_veracrypt
+- name: Add unofficial PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:unit193/encryption
+    state: present
+
+- name: Install the VeraCrypt package
+  package:
+    name: veracrypt
+    state: present

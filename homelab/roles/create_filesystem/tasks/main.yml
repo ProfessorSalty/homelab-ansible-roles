@@ -1,10 +1,13 @@
 ---
 # tasks file for create_filesystem
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#with-items
   - name: Create filesystem
     become: yes
-    with_items: "{{ var.drives }}"
+    loop: "{{ var.drives|flatten(levels=1) }}"
+    loop_control:
+      extended: yes
     community.general.parted:
       device: "/dev/{{ item.device }}"
-      number: 1
+      number: "{{ ansible_loop.index }}"
       state: mounted
       fs_type: ext4

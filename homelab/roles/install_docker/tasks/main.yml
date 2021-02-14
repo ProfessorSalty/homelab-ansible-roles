@@ -61,3 +61,14 @@
         groups: 
           - docker
         append: yes
+    - name: Forward Docker logs to Loki by default
+      become: yes
+      copy:
+        dest: /etc/docker/daemon.json
+        contents: |
+            {
+              "log-driver": "loki",
+              "log-opts": {
+                "loki-url": "http://{{ loki_server_address }}/loki/api/v1/push"
+              }
+            }

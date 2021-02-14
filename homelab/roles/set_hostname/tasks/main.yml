@@ -8,5 +8,5 @@
   lineinfile: 
     dest      : /etc/hosts
     regexp    : '^127\.0\.0\.1[ \t]+localhost'
-    line      : '127.0.0.1 localhost {{ var.hostname }} {{ var.hostname }}.land'
+    line      : '127.0.0.1 localhost {{ var.hostname }} {{ var.hostname }}.{{ var.localdomain }}'
     state     : present

@@ -1,2 +1,4 @@
 ---
 # vars file for set_hostname
+hostname: string
+localdomain: string
