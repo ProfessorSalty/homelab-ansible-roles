@@ -1,0 +1,12 @@
+---
+# tasks file for generate_password_entry
+- name: Generate CSV password entry
+  command:
+    chdir: /opt
+    cmd: "awk -F: '/\w+:\w+$/ { print Title,Website,Username,Password\n{{ hostname }},{{ hostname }},$1,$2 }' /var/log/cloud-init-output.log | tee password.csv"
+    creates: password.csv
+
+- name: Copy CSV file
+  fetch:
+    dest: "{{ target_path }}"
+    src: /opt/password.csv

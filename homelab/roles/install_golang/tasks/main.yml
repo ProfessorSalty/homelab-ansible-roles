@@ -1,0 +1,11 @@
+---
+# tasks file for install_golang
+- name: Install unofficial golang PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:longsleep/golang-backports
+    state: present
+
+- name: Install golang
+  package:
+    name: golang-go
+    state: present

@@ -1,0 +1,49 @@
+---
+# tasks file for install_netbox
+  - name: Install dependencies
+    become: yes
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - python3
+      - python3-pip
+      - python3-venv
+      - python3-dev
+      - build-essential
+      - libxml2-dev
+      - libxslt1-dev
+      - libffi-dev
+      - libpq-dev
+      - libssl-dev
+      - zlib1g-dev
+
+  - name: Update pip
+    become: yes
+    pip:
+      name: pip
+      state: latest
+
+  - name: Setup netbox user
+    become: yes
+    user:
+      system: yes
+      create_home: no
+      name: netbox
+      password: docker doo doo
+
+  - name: Clone the netbox repo
+    git:
+      repo: https://github.com/netbox-community/netbox.git
+      dest: /opt/netbox
+      depth: "1"
+
+  - name: Change directory permissions
+    file:
+      path: /opt/netbox/netbox/media
+      owner: netbox
+
+  - name: Create config file from template
+    template:
+      src: configuration.py
+      dest: /opt/netbox/netbox/netbox/configuration.py
