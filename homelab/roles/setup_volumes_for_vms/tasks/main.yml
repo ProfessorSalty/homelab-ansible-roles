@@ -1,0 +1,14 @@
+---
+# tasks file for setup_volumes_for_vms
+- name: Install cifs-utils
+  become: yes
+  package:
+    name: cifs-utils
+    state: present
+
+- name: Resize logical volume
+  become: yes
+  community.general.lvg:
+    vg: ubuntu-vg
+    pvs: /dev/sda3
+    pvresize: yes

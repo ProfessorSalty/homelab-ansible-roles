@@ -72,3 +72,9 @@
                 "loki-url": "http://{{ loki_server_address }}/loki/api/v1/push"
               }
             }
+    - name: Schedule cleanups to prevent disk usage problems
+      cron:
+        state: present
+        name: Docker system prune
+        job: "/usr/bin/docker system prune -f"
+        hour: 3

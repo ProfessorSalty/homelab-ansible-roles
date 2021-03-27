@@ -32,7 +32,7 @@
             - VOLUMES=1
             - TZ
           expose:
-            - 2375
+            - 2376
           volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
 
@@ -44,6 +44,6 @@
           container_name: watchtower
           networks:
             - proxy
-          command: -H tcp://dockerproxy:2375 --interval 30
+          command: -H tcp://dockerproxy:2376 --interval 30
           environment:
             - TZ
