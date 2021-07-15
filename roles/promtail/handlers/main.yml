@@ -1,0 +1,7 @@
+---
+# handlers file for promtail
+  - name: Enable Promtail service
+    ansible.builtin.service:
+      name: promtail
+      state: started
+      enabled: yes

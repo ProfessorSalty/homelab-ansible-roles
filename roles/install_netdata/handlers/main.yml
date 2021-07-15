@@ -4,3 +4,4 @@
     ansible.builtin.service:
       name: netdata
       state: started
+      enabled: yes
