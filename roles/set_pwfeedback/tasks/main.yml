@@ -1,0 +1,7 @@
+---
+- name: set pwfeedback in sudoers file
+  ansible.builtin.lineinfile:
+    state: present
+    path: /etc/sudoers
+    line: "Defaults\tenv_reset,pwfeedback"
+    regexep: 'env_reset$'
