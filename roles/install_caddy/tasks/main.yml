@@ -1,0 +1,32 @@
+---
+  - name: Ensure dependencies are install
+    become: yes
+    package:
+      name:
+        - debian-keyring
+        - debian-archive-keyring
+        - apt-transport-https
+      state: present
+
+  - name: Add official caddy key
+    become: yes
+    apt_key:
+      url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+      state: present
+
+  - name: Get repository information
+    become: yes
+    get_url:
+      url: https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt
+      dest: /etc/apt/sources.list.d/caddy-stable.list
+
+  - name: Update the repos
+    become: yes
+    apt:
+      update_cache: yes
+
+  - name: Install caddy
+    become: yes
+    package:
+      name: caddy
+      state: present
