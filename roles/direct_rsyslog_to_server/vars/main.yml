@@ -1,2 +1,4 @@
 ---
 # vars file for homelab.direct_rsyslog_to_server
+syslog_port: 514
+syslog_config_file: /etc/rsyslog

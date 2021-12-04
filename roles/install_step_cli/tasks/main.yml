@@ -1,0 +1,43 @@
+---
+- name: Download step-cli
+  get_url:
+    url: "{{ step_download_url }}/v{{ smallstep_cli_version }}/step_linux_{{ smallstep_cli_version }}_{{ smallstep_arch }}.tar.gz"
+    dest: "{{ step_tmp_archive }}"
+    mode: 0664
+    force: true
+- name: Untar packages
+  unarchive:
+    src: "{{ step_tmp_archive }}"
+    dest: /tmp
+    remote_src: true
+- name: Create directories
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  loop:
+    - "{{ step_directories }}"
+- name: Copy step-cli binary
+  copy:
+    src: /tmp/step_{{ smallstep_cli_version}}/bin/step
+    dest: "{{ step_bin }}"
+    remote_src: true
+    owner: root
+    group: root
+    mode: 0775
+- name: Add step group
+  group: name=step
+- name: Add step user
+  user:
+    name: step
+    group: step
+    home: /var/lib/step
+    create_home: true
+- name: Bootstrap step
+  when: bootstrap
+  command: "/usr/bin/step ca bootstrap --install --ca-url https://{{ ca_url }} --fingerprint {{ ca_fingerprint }}"
+
+

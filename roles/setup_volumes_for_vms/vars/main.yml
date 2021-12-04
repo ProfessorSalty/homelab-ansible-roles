@@ -1,2 +1,3 @@
 ---
 # vars file for setup_volumes_for_vms
+main_volume: /dev/sda3

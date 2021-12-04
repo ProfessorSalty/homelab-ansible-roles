@@ -1,7 +1,0 @@
----
-  - name: start_netdata
-    become: yes
-    ansible.builtin.service:
-      name: netdata
-      state: started
-      enabled: yes

@@ -1,2 +1,3 @@
 ---
 # vars file for install_veracrypt
+ppa_url: ppa:unit193/encryption

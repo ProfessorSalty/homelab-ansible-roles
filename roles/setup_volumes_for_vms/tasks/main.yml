@@ -10,5 +10,5 @@
   become: yes
   community.general.lvg:
     vg: ubuntu-vg
-    pvs: /dev/sda3
+    pvs: "{{ main_volume }}"
     pvresize: yes

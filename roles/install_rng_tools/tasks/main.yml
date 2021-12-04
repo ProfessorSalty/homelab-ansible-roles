@@ -8,6 +8,6 @@
 # https://www.nico-maas.de/?p=1562
 - name: Setup hardware rng
   ansible.builtin.lineinfile:
-    line: HRNGDEVICE=/dev/hwrng
-    file: /etc/default/rng-tools
+    line: "HRNGDEVICE={{ rng_device_file }}"
+    file: "{{ rng_config_file }}"
   notify: restart_rng-tools

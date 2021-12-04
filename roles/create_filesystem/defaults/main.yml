@@ -1,2 +1,5 @@
 ---
 # defaults file for create_filesystem
+drives:
+  - device: ""
+    mount_point: /mnt/other

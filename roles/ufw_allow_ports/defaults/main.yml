@@ -1,2 +1,5 @@
 ---
 # defaults file for ufw_allow_ports
+configs:
+  - service: http
+    port: 80

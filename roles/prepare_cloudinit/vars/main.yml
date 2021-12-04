@@ -1,2 +1,9 @@
 ---
 # vars file for prepare_cloudinit
+cloud_init_config_path: /etc/cloud/cloud.cfg.d
+default_cloud_init_file: 99-installer.cfg
+cloud_init_file: 99_pve.cfg
+cloud_init_dirs:
+  - /var/lib/cloud/instances
+  - /var/log/cloud-init.log
+  - /var/log/cloud-init-output.log

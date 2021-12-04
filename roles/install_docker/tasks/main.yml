@@ -13,13 +13,13 @@
       become: yes
       when: ansible_architecture is "x86_64"
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
         state: present
     - name: Set up the stable repository for armhf
       become: yes
       when: ansible_architecture is "arm64"
       apt_repository:
-        repo: deb [arch=armhf] https://download.docker.com/linux/ubuntu focal stable
+        repo: "deb [arch=armhf] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
         state: present
     - name: Update apt packages
       become: yes

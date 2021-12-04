@@ -1,5 +1,12 @@
 ---
-  - name: Ensure dependencies are install
+  - name: Create Caddy user
+    user:
+      name: "{{ caddy_user }}"
+      system: true
+      createhome: true
+      home: "{{ caddy_home }}"
+    register: caddy_user_details
+  - name: Ensure dependencies are installed
     become: yes
     package:
       name:

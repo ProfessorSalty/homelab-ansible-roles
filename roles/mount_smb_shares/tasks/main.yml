@@ -1,27 +1,27 @@
 ---
   - name: Mount drives
     become: yes
-    with_items: "{{ var.drives }}"
+    with_items: "{{ drives }}"
     ansible.posix.mount:
       src: "/dev/{{ item.device }}1"
-      path: "/mnt/{{ item.mount_point }}"
+      path: "{{ mounts_path }}/{{ item.mount_point }}"
 
   - name: Create credentials file
     become: yes
-    with_items: "{{ var.smb_credentials }}"
+    with_items: "{{ smb_credentials }}"
     copy:
-      dest: "/etc/.{{ item.username }}.smb"
+      dest: "{{ credentials_path }}/.{{ item.username }}.smb"
       content: |
         username={{ item.username }}
         password={{ item.password }}
 
   - name: Mount the media share
     become: yes
-    with_items: "{{ var.smb_credentials }}"
+    with_items: "{{ smb_credentials }}"
     ansible.posix.mount:
-      src: "{{ var.cifs_server_address }}/{{ item.sharepath }}"
-      path: "/mnt/{{ item.sharepath }}"
+      src: "{{ cifs_server_address }}/{{ item.sharepath }}"
+      path: "{{ mounts_path }}/{{ item.sharepath }}"
       state: mounted
       fs_type: cifs
-      opts: "credentials=/etc/.{{ item.username }}.smb,defaults,noperm"
+      opts: "credentials={{ credentials_path }}/.{{ item.username }}.smb,defaults,noperm"
 

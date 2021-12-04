@@ -1,5 +1,5 @@
 ---
 # vars file for homelab.install_docker
-ansible_check_mode: false
-template_username:
-loki_server_address: localhost:3100
+template_username: toor
+loki_server_address: 0.0.0.0
+loki_server_port: 3100

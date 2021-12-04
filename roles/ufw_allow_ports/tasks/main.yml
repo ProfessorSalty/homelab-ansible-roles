@@ -2,7 +2,7 @@
 # tasks file for ufw_allow_ports
 - name: Allow ports 
   become: yes
-  with_items: "{{ vars.configs }}"
+  with_items: "{{ configs }}"
   community.general.ufw:
     comment: "{{ item.service }}"
     direction: in

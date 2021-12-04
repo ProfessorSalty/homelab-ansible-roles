@@ -1,0 +1,10 @@
+---
+# vars file for install_step_cli
+step_download_url: https://github.com/smallstep/cli/releases/download/
+step_tmp_archive: /tmp/step-cli.tar.gz
+step_bin: /usr/bin/step
+step_directories:
+  - /usr/bin
+  - /usr/lib/systemd/system
+  - /usr/share/step-certificates/doc
+  - /usr/share/step-cli/doc

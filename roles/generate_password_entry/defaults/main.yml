@@ -1,2 +1,4 @@
 ---
 # defaults file for generate_password_entry
+hostname: 
+target_path: 

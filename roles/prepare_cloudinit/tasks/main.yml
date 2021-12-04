@@ -8,15 +8,15 @@
 - name: Remove unused Cloud-Init file
   become: yes
   file:
-    path: /etc/cloud/cloud.cfg.d/99-installer.cfg
+    path: "{{ cloud_init_config_path }}/{{ default_cloud_init_file }}"
     state: absent
 
-- name: Configure /etc/cloud/cloud.cfg.d/99_pve.cfg
+- name: Configure datasource list
   become: yes
   copy:
     content: |
       datasource_list: [ NoCloud, ConfigDrive ]
-    dest: /etc/cloud/cloud.cfg.d/99_pve.cfg
+    dest: "{{ cloud_init_config_path }}/{{ cloud_init_file }}"
     mode: u=rw,g=rw,o=rw
 
 - name: Clean up Cloud-Init installation
@@ -33,11 +33,9 @@
         path: "{{ item }}"
         state: absent
       loop:
-        - /var/lib/cloud/instances
-        - /var/log/cloud-init.log
-        - /var/log/cloud-init-output.log
+        - "{{ cloud_init_dirs }}"
 
-- name: cloud-init | Enabling cloud-init.service
+- name: Enable cloud-init.service
   become: yes
   service:
     name: cloud-init.service

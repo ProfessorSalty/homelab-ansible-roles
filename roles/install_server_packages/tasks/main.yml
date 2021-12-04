@@ -2,13 +2,7 @@
   - name: Install packages
     become: yes
     with_items:
-      - mosh
-      - avahi-daemon
-      - fish
-      - fail2ban
-      - tmux
-      - vim
-      - squid-deb-proxy-client
+      - "{{ packages }}"
     package:
       name: "{{ item }}"
       state: present
@@ -21,9 +15,9 @@
 
   - name: Copy fail2ban config
     become: yes
-    copy: 
-      src: jail.local 
-      dest: /etc/fail2ban/jail.local 
+    template: 
+      src: jail.local.j2 
+      dest: "{{ fail2ban_config_file_path }}"
       owner: root
       group: root 
       mode: 0644

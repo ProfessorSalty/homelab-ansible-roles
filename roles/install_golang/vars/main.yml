@@ -1,2 +1,3 @@
 ---
 # vars file for install_golang
+golang_ppa: ppa:longsleep/golang-backports

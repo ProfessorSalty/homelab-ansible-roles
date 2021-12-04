@@ -1,2 +1,4 @@
 ---
 # vars file for install_rng_tools
+rng_config_file: /etc/default/rng-tools
+rng_device_file: /dev/hwrng

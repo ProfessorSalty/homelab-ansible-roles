@@ -1,2 +1,12 @@
 ---
 # defaults file for mount_smb_shares
+smb_credentials:
+  - username:
+    password:
+    sharepath:
+
+drives:
+  - device:
+    mountpoint:
+      
+

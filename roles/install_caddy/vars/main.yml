@@ -1,2 +1,7 @@
 ---
 # vars file for install_caddy
+caddy_user: www-data
+caddy_home: /home/caddy
+caddy_bin_dir: /usr/local/bin
+caddy_conf_dir: /etc/caddy
+caddy_conf_filename: Caddyfile

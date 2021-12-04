@@ -1,0 +1,6 @@
+---
+# defaults file for install_step_cli
+mallstep_ca_version: 0.15.3
+smallstep_cli_version: 0.15.3
+smallstep_arch: amd64
+bootstrap: true

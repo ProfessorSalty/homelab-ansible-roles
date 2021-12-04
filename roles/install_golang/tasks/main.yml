@@ -1,8 +1,9 @@
 ---
 # tasks file for install_golang
 - name: Install unofficial golang PPA
+  when: ansible_distribution == "Ubuntu"
   ansible.builtin.apt_repository:
-    repo: ppa:longsleep/golang-backports
+    repo: "{{ golan_ppa }}"
     state: present
 
 - name: Install golang

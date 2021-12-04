@@ -1,4 +1,2 @@
 ---
 # vars file for generate_password_entry
-hostname: string
-target_path: string

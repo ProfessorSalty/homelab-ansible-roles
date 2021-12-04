@@ -18,13 +18,13 @@
     state: absent
     purge: yes
 
-- name: Delete /etc/netplan
+- name: Delete Netplan directory
   become: yes
   file:
     state: absent
     path: /etc/netplan/
 
-- name: Create /etc/network/interfaces
+- name: Create network interfaces direcotry
   become: yes
   copy:
     force: yes

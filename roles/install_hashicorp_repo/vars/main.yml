@@ -1,0 +1,4 @@
+---
+# vars file for install_hashicorp_repo
+hashicorp_ppa_url: https://apt.releases.hashicorp.com
+hashicorp_apt_key_url: https://apt.releases.hashicorp.com/gpg
