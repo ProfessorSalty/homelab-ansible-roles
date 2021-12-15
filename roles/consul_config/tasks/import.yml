@@ -1,0 +1,9 @@
+---
+- name: Load the file data
+  slurp:
+    src: "{{ kv_file }}"
+  register: slurped_kv_file
+
+- name: Import the specified Consul KV store from JSON
+  command: consul kv import -http-addr=http://{{ consul_server_addr }} {{ slurped_kv_file.content | b64decode | quote }}
+
