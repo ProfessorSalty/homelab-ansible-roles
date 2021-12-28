@@ -37,3 +37,13 @@
     package:
       name: caddy
       state: present
+
+  - block:
+    when: caddyfile_template is defined
+    - name: Write Caddyfile
+      template:
+        src: "{{ caddyfile_template }}"
+        dest: "{{ caddyfile_path }}"
+
+    - name: Reload Caddy config
+      command: "caddy run --config {{ caddyfile_path }}"

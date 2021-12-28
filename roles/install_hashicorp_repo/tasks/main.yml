@@ -1,5 +1,6 @@
 ---
 # tasks file for install_hashicorp_repo
+# TODO handle other architectures and distributions
 - block:
   when: ansible_distribution == "Ubuntu"
   - name: Add official repo key
