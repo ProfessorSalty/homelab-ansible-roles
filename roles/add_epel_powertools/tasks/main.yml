@@ -1,10 +1,12 @@
 ---
 - name: Install EPEL repo
+  become: yes
   dnf:
     name: epel-release
     state: present
     update_cache: yes
 - name: Enable CentOS8 PowerTools repo
+  become: yes
   # NB: doesn't run command  `dnf config-manager --set-enabled PowerTools` as can't make that idempotent
   # https://github.com/ansible/ansible/issues/46963#issuecomment-722999113
   lineinfile:
