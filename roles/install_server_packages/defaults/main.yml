@@ -1,11 +1,5 @@
 ---
 # defaults file for homelab.install_server_packages
-template_username:
-packages:
-  - mosh
-  - avahi-daemon
-  - fish
-  - fail2ban
-  - tmux
-  - vim
-  - squid-deb-proxy-client
+fail2ban_config_file_path: /etc/fail2ban/jail.local
+fish_bin_path: /usr/bin/fish
+template_username: toor

@@ -1,4 +1,0 @@
----
-# vars file for homelab.install_server_packages
-fail2ban_config_file_path: /etc/fail2ban/jail.local
-fish_bin_path: /usr/bin/fish

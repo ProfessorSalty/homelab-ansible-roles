@@ -1,0 +1,7 @@
+---
+packages:
+  - fish
+  - fail2ban
+  - fail2ban-systemd
+  - tmux
+  - vim
