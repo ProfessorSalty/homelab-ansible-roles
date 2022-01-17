@@ -43,7 +43,7 @@
     - name: Write Caddyfile
       template:
         src: "{{ caddyfile_template }}"
-        dest: "{{ caddyfile_path }}"
+        dest: "{{ caddy_home }}/Caddyfile"
 
     - name: Reload Caddy config
-      command: "caddy run --config {{ caddyfile_path }}"
+      command: "caddy run --config {{ caddy_home }}/Caddyfile"
