@@ -1,13 +1,11 @@
 ---
   - name: Mount drives
-    become: yes
     with_items: "{{ drives }}"
     ansible.posix.mount:
       src: "/dev/{{ item.device }}1"
       path: "{{ mounts_path }}/{{ item.mount_point }}"
 
   - name: Create credentials file
-    become: yes
     with_items: "{{ smb_credentials }}"
     copy:
       dest: "{{ credentials_path }}/.{{ item.username }}.smb"
@@ -16,7 +14,6 @@
         password={{ item.password }}
 
   - name: Mount the media share
-    become: yes
     with_items: "{{ smb_credentials }}"
     ansible.posix.mount:
       src: "{{ cifs_server_address }}/{{ item.sharepath }}"

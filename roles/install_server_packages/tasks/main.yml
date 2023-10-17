@@ -8,7 +8,6 @@
         skip: true
         
   - name: Install packages
-    become: yes
     with_items:
       - "{{ packages }}"
     package:
@@ -16,14 +15,12 @@
       state: present
 
   - name: Change shell to fish
-    become: yes
     user:
       name: "{{ template_username }}"
       shell: /usr/bin/fish
 
   - name: Copy fail2ban config
-    become: yes
-    template: 
+    template:
       src: jail.local.j2 
       dest: "{{ fail2ban_config_file_path }}"
       owner: root

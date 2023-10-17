@@ -1,19 +1,33 @@
 ---
 # tasks file for install_hashicorp_repo
-# TODO handle other architectures and distributions
-- block:
-  when: ansible_distribution == "Ubuntu"
-  - name: Add official repo key
-    become: yes
-    apt_key:
-      url: "{{ hashicorp_apt_key_url }}"
-      state: present
-  - name: Set up the stable repository
-    become: yes
-    apt_repository:
-      repo: "deb [arch=amd64] {{ hashicorp_ppa_url }} {{ ansible_distribution_release }} main"
-      state: present
-  - name: Update apt packages
-    become: yes
-    pakcage:
-      update_cache: yes
+---
+- name: Setup for Debian/Ubuntu
+  block:
+    - name: Add official repo key
+      ansible.builtin.apt_key:
+        url: "{{ hashicorp_apt_key_url }}"
+        state: present
+    - name: Set up the stable repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] {{ hashicorp_ppa_url }} {{ ansible_distribution_release }} main"
+        state: present
+    - name: Update apt packages
+      ansible.builtin.apt:
+        update_cache: yes
+  when: ansible_distribution | lower == "ubuntu" or ansible_distribution | lower == "debian"
+
+- name: Setup for Rocky Linux
+  block:
+    - name: Add official repo key
+      ansible.builtin.yum_key:
+        key: "{{ hashicorp_yum_key_url }}"
+        state: present
+    - name: Set up the stable repository
+      ansible.builtin.yum_repository:
+        name: hashicorp
+        description: HashiCorp YUM Repository
+        baseurl: "{{ hashicorp_yum_repo_url }}"
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: "{{ hashicorp_yum_key_url }}"
+  when: ansible_distribution | lower == "rocky"

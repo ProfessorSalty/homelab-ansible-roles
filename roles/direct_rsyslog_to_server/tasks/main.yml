@@ -1,6 +1,5 @@
 ---
   - name: Setup rsyslog to push logs to server
-    become: yes
     lineinfile:
       line: "$PreserveFQDN on\n\n*.* @{{ syslog_server_address }}:{{ syslog_port }}"
       path: "{{ syslog_config_file }}"

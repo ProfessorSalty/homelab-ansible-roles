@@ -1,6 +1,5 @@
 ---
 # handlers file for remove_netplan
 - name: update_grub
-  become: yes
   ansible.builtin.command:
     cmd: update-grub

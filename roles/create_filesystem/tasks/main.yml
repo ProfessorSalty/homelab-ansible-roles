@@ -2,7 +2,6 @@
 # tasks file for create_filesystem
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#with-items
   - name: Create filesystem
-    become: yes
     loop: "{{ var.drives|flatten(levels=1) }}"
     loop_control:
       extended: yes

@@ -1,18 +1,15 @@
 ---
 - name: Install Cloud-Init
-  become: yes
   package:
     name: cloud-init
     state: present
 
 - name: Remove unused Cloud-Init file
-  become: yes
   file:
     path: "{{ cloud_init_config_path }}/{{ default_cloud_init_file }}"
     state: absent
 
 - name: Configure datasource list
-  become: yes
   copy:
     content: |
       datasource_list: [ NoCloud, ConfigDrive ]
@@ -20,15 +17,11 @@
     mode: u=rw,g=rw,o=rw
 
 - name: Clean up Cloud-Init installation
-  become: yes
   block:
     - name: Attempting Cloud-Init clean
       command: cloud-init clean -s -l
-      become: yes
-
   rescue:
     - name: Manually clean Cloud-Init files
-      become: yes
       file:
         path: "{{ item }}"
         state: absent
@@ -36,7 +29,6 @@
         - "{{ cloud_init_dirs }}"
 
 - name: Enable cloud-init.service
-  become: yes
   service:
     name: cloud-init.service
     enabled: yes
