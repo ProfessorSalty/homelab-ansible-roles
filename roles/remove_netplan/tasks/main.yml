@@ -20,7 +20,7 @@
     state: absent
     path: /etc/netplan/
 
-- name: Create network interfaces direcotry
+- name: Create network interfaces directory
   copy:
     force: yes
     dest: "/etc/network/interfaces"

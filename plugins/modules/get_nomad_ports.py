@@ -61,14 +61,14 @@ EXAMPLES = r'''
 
 RETURN = r'''
 ports:
-    - name: http
+    - label: http
       port: 9000
-    - name: https
+    - label: https
       port: 9001
 '''
 
 
-protocol_regex = re.compile('^http?://', re.I)
+protocol_regex = re.compile('^https?://', re.I)
 
 
 def run_module():
@@ -97,7 +97,7 @@ def run_module():
         res = urllib.request.urlopen(req)
         json_body = json.loads(res.read().decode('utf-8'))
         task_groups = json_body['config']['TaskGroups']
-        ports = [{'name': port['Label'], 'port': port['Value']} for group in task_groups for networks in
+        ports = [{'label': port['Label'], 'port': port['Value']} for group in task_groups for networks in
                  group['Networks'] for port in networks['ReservedPorts']]
         return module.exit_json(changed=False, ports=ports)
     except urllib.error.URLError as e:

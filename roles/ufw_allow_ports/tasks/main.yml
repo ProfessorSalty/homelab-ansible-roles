@@ -1,13 +1,6 @@
 ---
 # tasks file for ufw_allow_ports
-- name: Get ports from Nomad
-  when: nomad_job_name is defined
-  register: nomad_ports
-  professorsalty.homelab.get_nomad_ports:
-    nomad_job_name: "{{ nomad_job_name }}"
-    nomad_token: "{{ nomad_token }}"
-    
-- name: Allow ports 
+- name: Allow ports
   with_items: "{{ configs }}"
   community.general.ufw:
     comment: "{{ item.service }}"

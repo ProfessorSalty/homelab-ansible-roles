@@ -14,13 +14,20 @@
     content: |
       datasource_list: [ NoCloud, ConfigDrive ]
     dest: "{{ cloud_init_config_path }}/{{ cloud_init_file }}"
-    mode: u=rw,g=rw,o=rw
+    mode: '0644'
 
 - name: Clean up Cloud-Init installation
   block:
     - name: Attempting Cloud-Init clean
       command: cloud-init clean -s -l
+      register: result
   rescue:
+    - name: Print error message
+      debug:
+        msg: |
+          Error while calling cloud-init clean. Manually cleaning up installation files.
+          
+          {{ result }}
     - name: Manually clean Cloud-Init files
       file:
         path: "{{ item }}"
